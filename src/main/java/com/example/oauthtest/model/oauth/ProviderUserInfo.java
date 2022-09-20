@@ -28,13 +28,23 @@ public class ProviderUserInfo {
   public static ProviderUserInfo of(String registrationId,
       String userNameAttributeName,
       Map<String, Object> attributes) {
+    if ("naver".equals(registrationId)) {
+      return ofNaver("id", attributes);
+    }
     return ofGoogle(userNameAttributeName, attributes);
   }
 
   private static ProviderUserInfo ofGoogle(String userNameAttributeName,
       Map<String, Object> attributes) {
-    return new ProviderUserInfo(attributes, userNameAttributeName, (String)attributes.get("name"),
-        (String)attributes.get("email"), (String)attributes.get("picture"));
+    return new ProviderUserInfo(attributes, userNameAttributeName, (String) attributes.get("name"),
+        (String) attributes.get("email"), (String) attributes.get("picture"));
+  }
+
+  private static ProviderUserInfo ofNaver(String userNameAttributeName,
+      Map<String, Object> attributes) {
+    var response = (Map<String, Object>) attributes.get("response");
+    return new ProviderUserInfo(response, userNameAttributeName, (String) response.get("name"),
+        (String) attributes.get("email"), (String) attributes.get("picture")); // 세션 저장시 버그있음
   }
 
 }

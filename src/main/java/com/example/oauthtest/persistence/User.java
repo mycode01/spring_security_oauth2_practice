@@ -25,6 +25,8 @@ public class User {
   @Enumerated(EnumType.STRING)
   private Role role;
 
+
+  private User(){} //for jpa reflection
   public User(String username, String email, String picture, Role role) {
     this.username = username;
     this.email = email;

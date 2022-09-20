@@ -1,9 +1,10 @@
 package com.example.oauthtest.model.session;
 
+import java.io.Serializable;
 import lombok.Data;
 
 @Data
-public class SessionUserInfo {
+public class SessionUserInfo implements Serializable {
   private String name;
   private String email;
   private String picture;
